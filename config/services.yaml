@@ -23,3 +23,11 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Controller\:
+        resource: '../src/controller'
+        tags: [ controller.service_arguments ]
+
+    App\DataProvider\EstelleCollectionDataProvider:
+        tags: [ {name: 'api_platform.collection_data_provider',  priority: 2}]
+        autoconfigure: false

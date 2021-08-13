@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title  %}Liste des assistantes maternelles{% endblock %}
+
+
+{% block body %}
+
+
+    <h1>Liste des assistantes maternelles à jour au {{ date }}</h1>
+    <img id="logoVRA" src="https://www.valenceromansagglo.fr/skins/InternetAgglo/resources/img/logo.svg" alt="logo">
+    <div>
+        <span>
+            {% for secteur in liste.getSecteurs %}
+                <table>
+                <thead>
+                    <tr>
+                        <td id="titreTableau" colspan="6">Secteur : {{ secteur.getLabel|upper }}</td>
+                    </tr>
+                </thead>
+                <tr>
+                    <th>Nom/Prénom</th>
+                    <th>Adresse</th>
+                    <th>Code&nbsp;Postal</th>
+                    <th>Ville</th>
+                    <th>Places&nbsp;dispo</th>
+                    <th>Téléphone</th>
+                </tr>
+                    {% for assMat in secteur.getAssMats %}
+                        {% if  assMat.getDispo > 0%}
+                        <tr>
+                            <td>{{ assMat.getNOM }}</td>
+                            <td>{{ assMat.getAdresse|escape }}</td>
+                            <td id="case">{{ assMat.getCp }}</td>
+                            <td id="case">{{ assMat.getVille }}</td>
+                            <td>{{ assMat.getDispo }} place{% if assMat.getDispo > 1 %}s{% endif %}</td>
+                            <td>{{ assMat.getTel }}{% if assMat.getTel != null and assMat.getPortable != null %} / {% endif %}{{ assMat.getPortable }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+            </table>
+            {% endfor %}
+            <br/>
+        </span>
+    </div>
+
+
+{% endblock %}
+
+
